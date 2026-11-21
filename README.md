@@ -45,6 +45,7 @@ Defaults are the submitted settings. Optional flags (not needed for grading):
 |---|---|---|
 | `--sample` | 2 | base frames per second sent to YOLO (`0` = every frame) |
 | `--extra` | 6 | frames per second used for seconds whose base frames disagree (`0` = off) |
+| `--workers` | CPU threads ÷ 4 (1 to 8) | decoder threads; each decodes a different video |
 | `--batch` | 32 | YOLO batch size |
 | `--fp32` | off | full precision instead of FP16 |
 
@@ -64,7 +65,7 @@ already processed are kept and one error line is added. A damaged Parquet file n
 YOLO11l (`yolo11l.pt`), `imgsz=640`, `conf=0.4`, class-aware NMS with `iou=0.7`, BGR frames, letterbox
 resize kept from Ultralytics, FP16. `iou=0.7` is passed explicitly because in Ultralytics 8.4 the
 predict default is 0.5. Frames are rotated using the video's rotation tag before the model sees them.
-Each YOLO batch holds frames from a single video, so all frames in a batch have the same size and get
+A reader thread hands videos to several decoder threads (one video each) while the main thread runs YOLO, so the order of lines in the output varies but their content does not. Each YOLO batch holds frames from a single video, so all frames in a batch have the same size and get
 the same letterbox as single-frame inference.
 
 ## Repository layout

@@ -2,8 +2,9 @@
 """Video indexing: for each second of each video, which of 5 objects appear and how many people.
 
 Pipeline
-  decoder thread : Parquet row -> mp4 bytes -> PyAV decode -> choose frames -> batches on a queue
-  main thread    : YOLO11l on batches -> per-second results -> JSONL lines
+  reader thread   : walks the Parquet files, hands each video (row) to a decoder thread
+  decoder threads : PyAV decode -> choose frames -> batches on a queue (each thread works on its own video)
+  main thread     : YOLO11l on batches -> per-second results -> JSONL lines
 
 Adaptive sampling
   Every second gets `--sample` base frames (default 2). If the base frames of a second disagree
@@ -17,13 +18,15 @@ from pathlib import Path
 import av
 import numpy as np
 import pyarrow.parquet as pq
+
 os.environ.setdefault("YOLO_OFFLINE", "1")   # the timed run has no internet: never try to go online
 from ultralytics import YOLO
 
 # COCO class id -> output name (names must match the brief exactly)
 CLASSES = {0: "person", 2: "car", 16: "dog", 63: "laptop", 67: "cell phone"}
 NAME_ORDER = ["person", "car", "dog", "laptop", "cell phone"]
-DONE = object()   # marks the end of the decoder's work
+DONE = object()   # one per decoder thread: marks the end of its work
+STOP = object()   # tells a decoder thread there are no more videos
 
 
 def parse_args():
@@ -35,6 +38,8 @@ def parse_args():
     p.add_argument("--batch", type=int, default=32)
     p.add_argument("--sample", type=int, default=2, help="base YOLO frames per second (0 = every frame)")
     p.add_argument("--extra", type=int, default=6, help="frames per second for seconds whose base frames disagree (0 = off)")
+    p.add_argument("--workers", type=int, default=max(1, min(8, (os.cpu_count() or 2) // 4)),
+                   help="decoder threads (each decodes a different video)")
     p.add_argument("--fp32", action="store_true", help="full precision (used to build a reference)")
     p.add_argument("--rows", default=None, help="testing only: comma-separated row numbers")
     return p.parse_args()
@@ -46,7 +51,7 @@ def rotate(img, rotation):
     return np.ascontiguousarray(np.rot90(img, k)) if k else img
 
 
-# ----------------------------- decoder thread -----------------------------
+# ----------------------------- reader + decoder threads -----------------------------
 
 def decode_video(key, data, args, q):
     """Decode one video; put ('frames', key, imgs, secs, is_base) batches on the queue, then ('end', key, error)."""
@@ -106,8 +111,24 @@ def decode_video(key, data, args, q):
     q.put(("end", key, err))
 
 
-def decoder(files, only_rows, args, q):
-    """Walk every Parquet file and row; never crash, always finish with DONE."""
+def decoder_worker(tasks, args, q):
+    """Take videos from the task queue and decode them until STOP."""
+    try:
+        while True:
+            task = tasks.get()
+            if task is STOP:
+                break
+            key, data = task
+            try:
+                decode_video(key, data, args, q)
+            except Exception as e:                       # should never happen; never lose a video
+                q.put(("end", key, f"decoder failed: {type(e).__name__}"))
+    finally:
+        q.put(DONE)
+
+
+def reader(files, only_rows, args, tasks, q):
+    """Walk every Parquet file and row; never crash; finally send one STOP per decoder thread."""
     try:
         for f in files:
             name = f.name
@@ -124,7 +145,7 @@ def decoder(files, only_rows, args, q):
                     for j in range(batch.num_rows):
                         r = row
                         if only_rows is None or r in only_rows:
-                            decode_video(f"{name}:{r}", col[j].as_py(), args, q)
+                            tasks.put((f"{name}:{r}", col[j].as_py()))
                         row = r + 1
             except Exception as e:
                 # the Parquet file broke partway: every remaining row gets an error line
@@ -134,13 +155,14 @@ def decoder(files, only_rows, args, q):
     except Exception:
         traceback.print_exc()
     finally:
-        q.put(DONE)
+        for _ in range(args.workers):
+            tasks.put(STOP)
 
 
 # ----------------------------- main thread (GPU) -----------------------------
 
 class Video:
-    """State for the video being processed in the main thread."""
+    """State for one video being processed in the main thread."""
     def __init__(self):
         self.stats = {}                    # sec -> [n_frames, [people per frame], {name: frames present}]
         self.base_imgs, self.base_secs = [], []
@@ -218,23 +240,29 @@ def main():
     files = sorted(Path(args.input).glob("*.parquet"))
     only_rows = {int(x) for x in args.rows.split(",")} if args.rows else None
 
-    q = queue.Queue(maxsize=6)          # small queue: decoder stays a few batches ahead, RAM stays low
-    threading.Thread(target=decoder, args=(files, only_rows, args, q), daemon=True).start()
+    q = queue.Queue(maxsize=4 + 2 * args.workers)     # decoded batches waiting for the GPU (bounded: low RAM)
+    tasks = queue.Queue(maxsize=args.workers)         # videos waiting for a decoder thread
+    threading.Thread(target=reader, args=(files, only_rows, args, tasks, q), daemon=True).start()
+    for _ in range(args.workers):
+        threading.Thread(target=decoder_worker, args=(tasks, args, q), daemon=True).start()
 
     n_videos = n_errors = 0
-    v = Video()
+    videos = {}                                       # key -> Video (several videos can be in progress)
+    done_workers = 0
     with open(args.output, "w") as out:
         def write(obj):
             out.write(json.dumps(obj) + "\n")
 
-        while True:
+        while done_workers < args.workers:
             item = q.get()
             if item is DONE:
-                break
+                done_workers += 1
+                continue
             kind = item[0]
             if kind == "start":
-                v = Video()
+                videos[item[1]] = Video()
             elif kind == "frames":
+                v = videos[item[1]]
                 if v.err:
                     continue
                 try:
@@ -250,6 +278,7 @@ def main():
                     v.err = f"model failed: {type(e).__name__}: {e}"[:200]
             elif kind == "end":
                 key = item[1]
+                v = videos.pop(key, None) or Video()
                 if not v.err:
                     try:
                         step(model, v, args, final=True)
@@ -267,7 +296,8 @@ def main():
                 write({"video": item[1], "error": item[2]})
                 n_errors += 1
 
-    print(f"Done: {n_videos} videos, {n_errors} errors, {time.time() - t_start:.1f}s", file=sys.stderr)
+    print(f"Done: {n_videos} videos, {n_errors} errors, {time.time() - t_start:.1f}s "
+          f"(decoder threads: {args.workers})", file=sys.stderr)
 
 
 if __name__ == "__main__":
