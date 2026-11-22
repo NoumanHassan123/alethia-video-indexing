@@ -1,0 +1,33 @@
+2026-11-21 13:00:52 === start / resume ===
+2026-11-21 13:50:57 === start / resume | python: /content/venv_test/bin/python ===
+2026-11-21 13:50:57 start train-00000-of-01357.parquet
+2026-11-21 13:57:55 train-00000-of-01357.parquet: download 1s | run 417s | Done: 33 videos, 0 errors, 413.8s
+2026-11-21 13:57:55 start train-00001-of-01357.parquet
+2026-11-21 14:05:49 train-00001-of-01357.parquet: download 1s | run 473s | Done: 33 videos, 0 errors, 470.0s
+2026-11-21 14:05:49 start train-00002-of-01357.parquet
+2026-11-21 14:14:34 train-00002-of-01357.parquet: download 10s | run 515s | Done: 33 videos, 0 errors, 510.3s
+2026-11-21 14:14:34 start train-00003-of-01357.parquet
+2026-11-21 14:21:46 train-00003-of-01357.parquet: download 12s | run 420s | Done: 33 videos, 0 errors, 416.9s
+2026-11-21 14:21:46 start train-00004-of-01357.parquet
+2026-11-21 14:28:30 train-00004-of-01357.parquet: download 8s | run 396s | Done: 33 videos, 0 errors, 392.4s
+2026-11-21 14:28:30 start train-00005-of-01357.parquet
+2026-11-21 14:35:37 train-00005-of-01357.parquet: download 5s | run 423s | Done: 33 videos, 0 errors, 420.1s
+2026-11-21 14:35:37 start train-00006-of-01357.parquet
+2026-11-21 14:43:22 train-00006-of-01357.parquet: download 4s | run 460s | Done: 33 videos, 0 errors, 457.0s
+2026-11-21 14:43:22 start train-00007-of-01357.parquet
+2026-11-21 14:50:06 train-00007-of-01357.parquet: download 5s | run 398s | Done: 33 videos, 0 errors, 392.0s
+2026-11-21 14:50:06 start train-00008-of-01357.parquet
+2026-11-21 14:57:40 train-00008-of-01357.parquet: download 46s | run 409s | Done: 33 videos, 0 errors, 405.4s
+2026-11-21 14:57:40 start train-00009-of-01357.parquet
+2026-11-21 15:03:31 train-00009-of-01357.parquet: download 7s | run 344s | Done: 33 videos, 0 errors, 340.0s
+2026-11-21 15:03:31 start train-00010-of-01357.parquet
+2026-11-21 15:10:11 train-00010-of-01357.parquet: download 11s | run 388s | Done: 33 videos, 0 errors, 385.1s
+2026-11-21 15:10:11 start train-00011-of-01357.parquet
+2026-11-21 15:17:34 train-00011-of-01357.parquet: download 5s | run 438s | Done: 33 videos, 0 errors, 435.1s
+2026-11-21 15:17:34 start train-00012-of-01357.parquet
+2026-11-21 15:26:18 train-00012-of-01357.parquet: download 6s | run 518s | Done: 33 videos, 0 errors, 514.8s
+2026-11-21 15:26:18 start train-00013-of-01357.parquet
+2026-11-21 15:32:11 train-00013-of-01357.parquet: download 3s | run 350s | Done: 33 videos, 0 errors, 346.1s
+2026-11-21 15:32:11 start train-00014-of-01357.parquet
+2026-11-21 15:38:59 train-00014-of-01357.parquet: download 6s | run 402s | Done: 33 videos, 0 errors, 398.3s
+2026-11-21 15:38:59 start train-00015-of-01357.parquet

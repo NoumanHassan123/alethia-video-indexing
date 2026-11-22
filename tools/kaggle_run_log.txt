@@ -1,0 +1,75 @@
+2026-11-21 21:01:54 === start: 35 files on 2 GPUs ===
+2026-11-21 21:01:54 start train-00015-of-01357.parquet on GPU 0
+2026-11-21 21:01:54 start train-00016-of-01357.parquet on GPU 1
+2026-11-21 21:07:54 train-00015-of-01357.parquet: GPU 0 | download 3s | run 356s | Done: 33 videos, 0 errors, 353.0s (decoder threads: 1)
+2026-11-21 21:07:54 start train-00017-of-01357.parquet on GPU 0
+2026-11-21 21:09:09 train-00016-of-01357.parquet: GPU 1 | download 3s | run 431s | Done: 33 videos, 0 errors, 428.1s (decoder threads: 1)
+2026-11-21 21:09:09 start train-00018-of-01357.parquet on GPU 1
+2026-11-21 21:14:19 train-00017-of-01357.parquet: GPU 0 | download 3s | run 382s | Done: 33 videos, 0 errors, 377.8s (decoder threads: 1)
+2026-11-21 21:14:19 start train-00019-of-01357.parquet on GPU 0
+2026-11-21 21:16:02 train-00018-of-01357.parquet: GPU 1 | download 3s | run 410s | Done: 33 videos, 0 errors, 406.4s (decoder threads: 1)
+2026-11-21 21:16:02 start train-00020-of-01357.parquet on GPU 1
+2026-11-21 21:19:47 train-00019-of-01357.parquet: GPU 0 | download 3s | run 326s | Done: 33 videos, 0 errors, 322.3s (decoder threads: 1)
+2026-11-21 21:19:47 start train-00021-of-01357.parquet on GPU 0
+2026-11-21 21:22:35 train-00020-of-01357.parquet: GPU 1 | download 3s | run 390s | Done: 33 videos, 0 errors, 386.3s (decoder threads: 1)
+2026-11-21 21:22:35 start train-00022-of-01357.parquet on GPU 1
+2026-11-21 21:26:20 train-00021-of-01357.parquet: GPU 0 | download 3s | run 390s | Done: 33 videos, 0 errors, 386.6s (decoder threads: 1)
+2026-11-21 21:26:20 start train-00023-of-01357.parquet on GPU 0
+2026-11-21 21:27:59 train-00022-of-01357.parquet: GPU 1 | download 3s | run 321s | Done: 33 videos, 0 errors, 317.7s (decoder threads: 1)
+2026-11-21 21:27:59 start train-00024-of-01357.parquet on GPU 1
+2026-11-21 21:32:25 train-00023-of-01357.parquet: GPU 0 | download 3s | run 362s | Done: 33 videos, 0 errors, 358.9s (decoder threads: 1)
+2026-11-21 21:32:25 start train-00025-of-01357.parquet on GPU 0
+2026-11-21 21:34:14 train-00024-of-01357.parquet: GPU 1 | download 3s | run 372s | Done: 33 videos, 0 errors, 367.8s (decoder threads: 1)
+2026-11-21 21:34:14 start train-00026-of-01357.parquet on GPU 1
+2026-11-21 21:38:29 train-00025-of-01357.parquet: GPU 0 | download 3s | run 361s | Done: 33 videos, 0 errors, 356.4s (decoder threads: 1)
+2026-11-21 21:38:29 start train-00027-of-01357.parquet on GPU 0
+2026-11-21 21:40:20 train-00026-of-01357.parquet: GPU 1 | download 3s | run 363s | Done: 33 videos, 0 errors, 358.4s (decoder threads: 1)
+2026-11-21 21:40:20 start train-00028-of-01357.parquet on GPU 1
+2026-11-21 21:44:38 train-00027-of-01357.parquet: GPU 0 | download 3s | run 366s | Done: 33 videos, 0 errors, 361.9s (decoder threads: 1)
+2026-11-21 21:44:38 start train-00029-of-01357.parquet on GPU 0
+2026-11-21 21:46:23 train-00028-of-01357.parquet: GPU 1 | download 4s | run 359s | Done: 33 videos, 0 errors, 354.8s (decoder threads: 1)
+2026-11-21 21:46:23 start train-00030-of-01357.parquet on GPU 1
+2026-11-21 21:51:12 train-00029-of-01357.parquet: GPU 0 | download 3s | run 391s | Done: 33 videos, 0 errors, 384.4s (decoder threads: 1)
+2026-11-21 21:51:12 start train-00031-of-01357.parquet on GPU 0
+2026-11-21 21:51:56 train-00030-of-01357.parquet: GPU 1 | download 3s | run 330s | Done: 33 videos, 0 errors, 326.8s (decoder threads: 1)
+2026-11-21 21:51:56 start train-00032-of-01357.parquet on GPU 1
+2026-11-21 21:56:58 train-00031-of-01357.parquet: GPU 0 | download 3s | run 344s | Done: 33 videos, 0 errors, 340.8s (decoder threads: 1)
+2026-11-21 21:56:58 start train-00033-of-01357.parquet on GPU 0
+2026-11-21 21:58:22 train-00032-of-01357.parquet: GPU 1 | download 3s | run 383s | Done: 33 videos, 0 errors, 378.7s (decoder threads: 1)
+2026-11-21 21:58:22 start train-00034-of-01357.parquet on GPU 1
+2026-11-21 22:03:12 train-00033-of-01357.parquet: GPU 0 | download 3s | run 371s | Done: 33 videos, 0 errors, 364.8s (decoder threads: 1)
+2026-11-21 22:03:12 start train-00035-of-01357.parquet on GPU 0
+2026-11-21 22:09:59 === start: 16 files on 2 GPUs ===
+2026-11-21 22:09:59 start train-00034-of-01357.parquet on GPU 0
+2026-11-21 22:09:59 start train-00035-of-01357.parquet on GPU 1
+2026-11-21 22:16:02 train-00035-of-01357.parquet: GPU 1 | download 3s | run 360s | Done: 33 videos, 0 errors, 356.7s (decoder threads: 1)
+2026-11-21 22:16:02 start train-00036-of-01357.parquet on GPU 1
+2026-11-21 22:16:39 train-00034-of-01357.parquet: GPU 0 | download 3s | run 398s | Done: 33 videos, 0 errors, 394.7s (decoder threads: 1)
+2026-11-21 22:16:39 start train-00037-of-01357.parquet on GPU 0
+2026-11-21 22:21:59 train-00036-of-01357.parquet: GPU 1 | download 3s | run 354s | Done: 33 videos, 0 errors, 349.2s (decoder threads: 1)
+2026-11-21 22:21:59 start train-00038-of-01357.parquet on GPU 1
+2026-11-21 22:22:07 train-00037-of-01357.parquet: GPU 0 | download 3s | run 325s | Done: 33 videos, 0 errors, 321.1s (decoder threads: 1)
+2026-11-21 22:22:07 start train-00039-of-01357.parquet on GPU 0
+2026-11-21 22:27:55 train-00039-of-01357.parquet: GPU 0 | download 3s | run 345s | Done: 33 videos, 0 errors, 342.0s (decoder threads: 1)
+2026-11-21 22:27:55 start train-00040-of-01357.parquet on GPU 0
+2026-11-21 22:28:04 train-00038-of-01357.parquet: GPU 1 | download 3s | run 362s | Done: 33 videos, 0 errors, 358.5s (decoder threads: 1)
+2026-11-21 22:28:04 start train-00041-of-01357.parquet on GPU 1
+2026-11-21 22:34:44 train-00041-of-01357.parquet: GPU 1 | download 3s | run 397s | Done: 33 videos, 0 errors, 393.3s (decoder threads: 1)
+2026-11-21 22:34:44 start train-00042-of-01357.parquet on GPU 1
+2026-11-21 22:34:50 train-00040-of-01357.parquet: GPU 0 | download 3s | run 412s | Done: 33 videos, 0 errors, 408.4s (decoder threads: 1)
+2026-11-21 22:34:50 start train-00043-of-01357.parquet on GPU 0
+2026-11-21 22:40:25 train-00042-of-01357.parquet: GPU 1 | download 3s | run 339s | Done: 33 videos, 0 errors, 334.0s (decoder threads: 1)
+2026-11-21 22:40:25 start train-00044-of-01357.parquet on GPU 1
+2026-11-21 22:41:40 train-00043-of-01357.parquet: GPU 0 | download 3s | run 408s | Done: 33 videos, 0 errors, 404.9s (decoder threads: 1)
+2026-11-21 22:41:40 start train-00045-of-01357.parquet on GPU 0
+2026-11-21 22:46:59 train-00044-of-01357.parquet: GPU 1 | download 3s | run 391s | Done: 33 videos, 0 errors, 387.1s (decoder threads: 1)
+2026-11-21 22:46:59 start train-00046-of-01357.parquet on GPU 1
+2026-11-21 22:47:26 train-00045-of-01357.parquet: GPU 0 | download 3s | run 343s | Done: 33 videos, 0 errors, 339.6s (decoder threads: 1)
+2026-11-21 22:47:26 start train-00047-of-01357.parquet on GPU 0
+2026-11-21 22:52:48 train-00047-of-01357.parquet: GPU 0 | download 3s | run 319s | Done: 33 videos, 0 errors, 315.6s (decoder threads: 1)
+2026-11-21 22:52:48 start train-00048-of-01357.parquet on GPU 0
+2026-11-21 22:53:31 train-00046-of-01357.parquet: GPU 1 | download 3s | run 390s | Done: 33 videos, 0 errors, 386.8s (decoder threads: 1)
+2026-11-21 22:53:31 start train-00049-of-01357.parquet on GPU 1
+2026-11-21 22:58:49 train-00048-of-01357.parquet: GPU 0 | download 3s | run 359s | Done: 33 videos, 0 errors, 354.7s (decoder threads: 1)
+2026-11-21 22:59:25 train-00049-of-01357.parquet: GPU 1 | download 3s | run 351s | Done: 33 videos, 0 errors, 347.5s (decoder threads: 1)
+2026-11-21 22:59:25 === finished in 2966s | result files here: 35 | still failed: [] ===
